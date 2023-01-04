@@ -12,7 +12,7 @@ import java.io.PrintStream;
  */
 public class BurpExtender implements IBurpExtender, ITab {
     public static final String TAB_NAME = "autoDecoder-Beta";
-    private static final String VERSION = "0.1";
+    private static final String VERSION = "0.11";
     private static final String PROFILE_NAME = "autoDecoder-Beta.json";
     private TabShow show;
 
