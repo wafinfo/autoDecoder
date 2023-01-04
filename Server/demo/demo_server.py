@@ -39,7 +39,7 @@ def get():
 def set_value():
     global global_data
     global_data = decrypt(request.data).decode()
-    return "ok"
+    return encrypt((global_data + "ok").encode()).decode()
 
 
 @app.route("/aes.js", methods=["GET"])

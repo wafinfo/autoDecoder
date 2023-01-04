@@ -2,7 +2,6 @@ import base64
 import json
 from abc import ABC, abstractmethod
 from enum import Enum
-from traceback import format_exception
 from typing import Dict, Any, List, Optional
 
 from flask import Flask, request
@@ -227,13 +226,13 @@ class Framework(object):
                 try:
                     result = do_obj.on_request(packet)
                 except Exception as e:
-                    print("".join(format_exception(e)))
+                    print(e)
                     result = BaseModel.on_request(do_obj, packet)
             elif packet.type == Packet.Type.RESPONSE:
                 try:
                     result = do_obj.on_response(packet)
                 except Exception as e:
-                    print("".join(format_exception(e)))
+                    print(e)
                     result = BaseModel.on_response(do_obj, packet)
             # print(f"Response:{json.dumps(result)}")
             return json.dumps(result)

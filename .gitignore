@@ -16,3 +16,4 @@ gradle-app.setting
 /out/
 /.idea/artifacts/autoDecoder_main_jar.xml
 /.idea/git_toolbox_prj.xml
+*.pyc

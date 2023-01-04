@@ -7,20 +7,6 @@ from Crypto.Util.Padding import pad, unpad
 
 from framework import BaseModel, Packet, Framework, Argument
 
-KEY = b"1234567890123456"
-IV = b"3216549870321654"
-PAD_SIZE = 16
-
-
-def decrypt(data: bytes):
-    handle = AES.new(KEY, AES.MODE_CBC, IV)
-    return unpad(handle.decrypt(binascii.unhexlify(data)), PAD_SIZE)
-
-
-def encrypt(data: bytes):
-    handle = AES.new(KEY, AES.MODE_CBC, IV)
-    return binascii.hexlify(handle.encrypt(pad(data, PAD_SIZE)))
-
 
 class DemoPacket(Packet):
     def create_argument(self, data: str):
@@ -57,6 +43,21 @@ class DemoArgument(Argument):
         return self.__skip
 
 
+KEY = b"1234567890123456"
+IV = b"3216549870321654"
+PAD_SIZE = 16
+
+
+def decrypt(data: bytes):
+    handle = AES.new(KEY, AES.MODE_CBC, IV)
+    return unpad(handle.decrypt(binascii.unhexlify(data)), PAD_SIZE)
+
+
+def encrypt(data: bytes):
+    handle = AES.new(KEY, AES.MODE_CBC, IV)
+    return binascii.hexlify(handle.encrypt(pad(data, PAD_SIZE)))
+
+
 class Demo(BaseModel):
     def on_request(self, data: Packet) -> Dict[str, Any]:
         if data.url.endswith(":60000/set"):
@@ -89,4 +90,5 @@ class Demo(BaseModel):
         return data.to_data()
 
 
-Framework("Demo", Demo(), DemoPacket).start("0.0.0.0", 5000)
+def main():
+    Framework("Demo", Demo(), DemoPacket).start("0.0.0.0", 5000)
